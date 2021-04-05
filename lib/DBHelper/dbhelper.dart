@@ -115,7 +115,7 @@ class DbHelper {
   }
 
   //delete data pada tabel MataKuliah
-   Future<int> delete(int id) async {
+   Future<int> deleteMataKuliah(int id) async {
     Database db = await this.initDb();
     int count = await db.delete('mataKuliah', where: 'id=?', whereArgs: [id]);
     return count;
@@ -150,7 +150,7 @@ class DbHelper {
     return _dbHelper;
   }
 
-  
+
   Future<Database> get database async {
     if (_database == null) {
       _database = await initDb();

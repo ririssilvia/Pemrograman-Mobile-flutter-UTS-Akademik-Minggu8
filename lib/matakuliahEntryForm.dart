@@ -1,51 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:uts/Model/mahasiswa.dart';
-
+import 'package:uts/Model/mataKuliah.dart';
 
 class EntryForm extends StatefulWidget {
-  final Mahasiswa mahasiswa;
-  EntryForm(this.mahasiswa);
+  final MataKuliah mataKuliah;
+  EntryForm(this.mataKuliah);
   @override
-  EntryFormState createState() => EntryFormState(this.mahasiswa);
+  EntryFormState createState() => EntryFormState(this.mataKuliah);
 }
 
 //class controller
 class EntryFormState extends State<EntryForm> {
-  Mahasiswa mahasiswa;
-  EntryFormState(this.mahasiswa);
-  TextEditingController nimController = TextEditingController();
-  TextEditingController namaController = TextEditingController();
-  TextEditingController jenisKelaminController = TextEditingController();
-  TextEditingController alamatController = TextEditingController();
-
+  MataKuliah mataKuliah;
+  EntryFormState(this.mataKuliah);
+  TextEditingController kodeMatakulController = TextEditingController();
+  TextEditingController namaMatkulController = TextEditingController();
+  TextEditingController sksController = TextEditingController();
+  
 
   @override
   Widget build(BuildContext context) {
     //kondisi
-    if (mahasiswa != null) {
-      nimController.text = mahasiswa.nim;
-      namaController.text = mahasiswa.nama;
-      jenisKelaminController.text = mahasiswa.jenisKelamin;
-      alamatController.text = mahasiswa.alamat;
+    if (mataKuliah != null) {
+      kodeMatakulController.text = mataKuliah.kodeMatkul;
+      namaMatkulController.text = mataKuliah.namaMatkul;
+      sksController.text = mataKuliah.sks.toString();
+      
     }
     //rubah
     return Scaffold(
         appBar: AppBar(
-          title: mahasiswa== null ? Text('Tambah') : Text('Ubah'),
+          title: mataKuliah== null ? Text('Tambah') : Text('Ubah'),
           leading: Icon(Icons.keyboard_arrow_left),
         ),
         body: Padding(
           padding: EdgeInsets.only(top: 15.0, left: 10.0, right: 10.0),
           child: ListView(
             children: <Widget>[
-              // NIM
+              // kode matkul
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                 child: TextField(
-                  controller: nimController,
+                  controller: kodeMatakulController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    labelText: 'NIM',
+                    labelText: 'Kode MataKuliah',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
@@ -56,14 +54,14 @@ class EntryFormState extends State<EntryForm> {
                 ),
               ),
 
-              // nama
+              // nama Matakuliah
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                 child: TextField(
-                  controller: namaController,
+                  controller: namaMatkulController,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
-                    labelText: 'Nama Mahasiswa',
+                    labelText: 'Nama MataKulaih',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
@@ -73,14 +71,14 @@ class EntryFormState extends State<EntryForm> {
                   },
                 ),
               ),
-              // jenisKelamain
+              // sks
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                 child: TextField(
-                  controller: jenisKelaminController,
-                  keyboardType: TextInputType.text,
+                  controller:  sksController,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    labelText: 'Jenis Kelamin',
+                    labelText: 'Jumlah SKS',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
@@ -91,22 +89,6 @@ class EntryFormState extends State<EntryForm> {
                 ),
               ),
 
-              Padding(
-                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                child: TextField(
-                  controller: alamatController,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    labelText: 'Alamat',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                  onChanged: (value) {
-                //
-                  },
-                ),
-              ),
 
               // tombol button
               Padding(
@@ -123,23 +105,22 @@ class EntryFormState extends State<EntryForm> {
                           textScaleFactor: 1.5,
                         ),
                         onPressed: () {
-                          if (mahasiswa == null) {
+                          if (mataKuliah == null) {
                           // tambah data
-                            mahasiswa = Mahasiswa(
-                                nimController.text,
-                                namaController.text,
-                                jenisKelaminController.text,
-                                alamatController.text );
+                            mataKuliah = MataKuliah(
+                                kodeMatakulController.text,
+                                namaMatkulController.text,
+                                int.parse(sksController.text));
                           } else {
                             // ubah data
-                            mahasiswa.nim = nimController.text;
-                            mahasiswa.nama = namaController.text;
-                            mahasiswa.jenisKelamin= jenisKelaminController.text;
-                            mahasiswa.alamat= alamatController.text;
+                            mataKuliah.kodeMatkul =  kodeMatakulController.text;
+                            mataKuliah.namaMatkul =  namaMatkulController.text;
+                            mataKuliah.sks = int.parse(sksController.text);
+                            
                           }
 
                     // kembali ke layar sebelumnya dengan membawa objek item
-                          Navigator.pop(context, mahasiswa);
+                          Navigator.pop(context, mataKuliah);
                         },
                       ),
                     ),

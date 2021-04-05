@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uts/homeMahasiswa.dart';
+import 'package:uts/homeMatakuliah.dart';
 
 class Home extends StatelessWidget {
   // This widget is the root of your application.
@@ -94,7 +95,13 @@ class Home extends StatelessWidget {
                     margin: EdgeInsets.only(left: 20, top: 20, right: 20),
                     child: RaisedButton(
                       color: Colors.yellow,
-                      onPressed: () {},
+                       onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HomeMatkul(),
+                            ));
+                      },
                       padding: EdgeInsets.only(
                           left: 30, top: 15, right: 30, bottom: 40),
                       child: Column(
