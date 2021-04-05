@@ -9,8 +9,7 @@ import 'mahasiswaEntryForm.dart';
 class HomeMhs extends StatefulWidget {
   @override
   HomeMhsState createState() => HomeMhsState();
-
-  }
+}
 
 class HomeMhsState extends State<HomeMhs> {
   DbHelper dbHelper = DbHelper();
@@ -25,7 +24,7 @@ class HomeMhsState extends State<HomeMhs> {
 
   @override
   Widget build(BuildContext context) {
-    if (mahasiswaList== null) {
+    if (mahasiswaList == null) {
       mahasiswaList = [];
     }
     return Scaffold(
@@ -36,32 +35,33 @@ class HomeMhsState extends State<HomeMhs> {
         Expanded(
           child: createListView(),
         ),
-        Container(
-          alignment: Alignment.bottomCenter,
-          child: SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              child: Text("Tambah Mahasiswa"),
-              onPressed: () async {
-                var data = await navigateToEntryForm(context, null);
-                if (data != null) {
-                  int result = await dbHelper.insertMahasiswa(data);
-                  if (result > 0) {
-                    updateListView();
-                  }
-                }
-              },
-            ),
-          ),
-        ),
       ]),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          var data = await navigateToEntryForm(context, null);
+          if (data != null) {
+            int result = await dbHelper.insertMahasiswa(data);
+            if (result > 0) {
+              updateListView();
+            }
+          }
+        },
+        child: Icon(
+          //membuat icon
+          Icons.add,
+          size: 50,
+          color: Colors.black,
+        ),
+        backgroundColor: Colors.yellow[700],
+      ),
     );
   }
 
-  Future<Mahasiswa> navigateToEntryForm(BuildContext context, Mahasiswa mahasiswa) async {
+  Future<Mahasiswa> navigateToEntryForm(
+      BuildContext context, Mahasiswa mahasiswa) async {
     var result = await Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) {
-   return EntryForm(mahasiswa);
+      return EntryForm(mahasiswa);
     }));
     return result;
   }
@@ -72,35 +72,71 @@ class HomeMhsState extends State<HomeMhs> {
       itemCount: count,
       itemBuilder: (BuildContext context, int index) {
         return Card(
-          color: Colors.white,
-          elevation: 2.0,
+          color: Colors.purple[100],
           child: ListTile(
             leading: CircleAvatar(
-              backgroundColor: Colors.red,
-              child: Icon(Icons.ad_units),
+              child: Icon(Icons.people),
             ),
             title: Text(
               this.mahasiswaList[index].nim.toString(),
-              style: textStyle,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
             ),
-            subtitle: Text(this.mahasiswaList[index].nama),
-            trailing: GestureDetector(
-              child: Icon(Icons.delete),
-              onTap: () async {
-                dbHelper.deleteMahasiswa(this.mahasiswaList[index].id);
-                updateListView();
-              },
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Nama : " + this.mahasiswaList[index].nama,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                ),
+                Text(
+                  "Jenis Kelamin : " + this.mahasiswaList[index].jenisKelamin,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                ),
+                Text(
+                  "Alamat : " + this.mahasiswaList[index].alamat,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                ),
+              ],
             ),
-            onTap: () async {
-              var data =
-                  await navigateToEntryForm(context, this.mahasiswaList[index]);
-              if (data != null) {
-                int result = await dbHelper.updateMahasiswa(data);
-                if (result > 0) {
-                  updateListView();
-                }
-              }
-            },
+
+            // widget yang akan menampilkan setelah title
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed: () async {
+                    var data = await navigateToEntryForm(
+                        context, this.mahasiswaList[index]);
+                    if (data != null) {
+                      int result = await dbHelper.updateMahasiswa(data);
+                      if (result > 0) {
+                        updateListView();
+                      }
+                    }
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () async {
+                    dbHelper.deleteMahasiswa(this.mahasiswaList[index].id);
+                    updateListView();
+                  },
+                )
+              ],
+            ),
           ),
         );
       },
