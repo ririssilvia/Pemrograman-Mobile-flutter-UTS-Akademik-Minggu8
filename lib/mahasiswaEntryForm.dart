@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:uts/DBHelper/dbhelper.dart';
 import 'package:uts/Model/mahasiswa.dart';
+import 'package:uts/Model/mataKuliah.dart';
 
 class EntryForm extends StatefulWidget {
   final Mahasiswa mahasiswa;
+
   EntryForm(this.mahasiswa);
+
   @override
   EntryFormState createState() => EntryFormState(this.mahasiswa);
 }
@@ -11,11 +16,39 @@ class EntryForm extends StatefulWidget {
 //class controller
 class EntryFormState extends State<EntryForm> {
   Mahasiswa mahasiswa;
+
   EntryFormState(this.mahasiswa);
+
   TextEditingController nimController = TextEditingController();
   TextEditingController namaController = TextEditingController();
   TextEditingController jenisKelaminController = TextEditingController();
   TextEditingController alamatController = TextEditingController();
+
+  String dropdownMataKuliah;
+  DbHelper dbHelper = DbHelper();
+  
+   int count = 0;
+  List<MataKuliah> matkulList = [];
+
+   void dropDownMatkul() async {
+    final Future<Database> dbFuture = dbHelper.initDb();
+
+    dbFuture.then((database) {
+      Future<List<MataKuliah>> itemMatkulListFuture = dbHelper.getMataKuliahList();
+      itemMatkulListFuture.then((matkulList) {
+        setState(() {
+          this.matkulList  = matkulList ;
+          this.dropdownMataKuliah = matkulList[0].namaMatkul;
+          this.count = matkulList.length;
+        });
+      });
+    });
+  }
+
+  void initState() {
+    super.initState();
+    dropDownMatkul();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +111,24 @@ class EntryFormState extends State<EntryForm> {
                   },
                 ),
               ),
+            //     Padding(
+            //   padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+            //   child: DropdownButton<String>(
+            //     isExpanded: true,
+            //     value: dropdownMataKuliah,
+            //     items: matkulList.map((value) {
+            //       return new DropdownMenuItem<String>(
+            //         value: value.namaMatkul.toString(),
+            //         child: new Text(
+            //           value.namaMatkul,
+            //         ),
+            //       );
+            //     }).toList(),
+            //     onChanged: (selectedItem) => setState(() {
+            //       dropdownMataKuliah = selectedItem;
+            //     }),
+            //   ),
+            // ),
               // jenisKelamain
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),

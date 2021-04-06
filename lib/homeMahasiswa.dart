@@ -67,7 +67,8 @@ class HomeMhsState extends State<HomeMhs> {
   }
 
   ListView createListView() {
-    TextStyle textStyle = Theme.of(context).textTheme.headline5;
+    // ignore: unused_local_variable
+    TextStyle textStyle = Theme.of(context).textTheme.headline6;
     return ListView.builder(
       itemCount: count,
       itemBuilder: (BuildContext context, int index) {

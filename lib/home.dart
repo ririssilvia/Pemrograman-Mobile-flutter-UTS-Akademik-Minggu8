@@ -187,7 +187,7 @@ class Home extends StatelessWidget {
                             ),
                             child: Icon(
                               //membuat icon
-                              Icons.person,
+                              Icons.collections_bookmark_outlined,
                               size: 60,
                               color: Colors.black,
                             ),
@@ -195,7 +195,7 @@ class Home extends StatelessWidget {
                           Container(
                             margin: EdgeInsets.only(top: 20),
                             child: Text(
-                              "Dosen",
+                              "Ambil Matakuliah",
                               style:
                                   TextStyle(fontSize: 20, color: Colors.black),
                             ),
