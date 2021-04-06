@@ -7,9 +7,8 @@ import 'matakuliahEntryForm.dart';
 
 class HomeMatkul extends StatefulWidget {
   @override
-  HomeMatkulState createState() =>HomeMatkulState();
-
-  }
+  HomeMatkulState createState() => HomeMatkulState();
+}
 
 class HomeMatkulState extends State<HomeMatkul> {
   DbHelper dbHelper = DbHelper();
@@ -24,7 +23,7 @@ class HomeMatkulState extends State<HomeMatkul> {
 
   @override
   Widget build(BuildContext context) {
-    if (mataKulihList== null) {
+    if (mataKulihList == null) {
       mataKulihList = [];
     }
     return Scaffold(
@@ -35,32 +34,33 @@ class HomeMatkulState extends State<HomeMatkul> {
         Expanded(
           child: createListView(),
         ),
-        Container(
-          alignment: Alignment.bottomCenter,
-          child: SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              child: Text("Tambah MataKuliah"),
-              onPressed: () async {
-                var data = await navigateToEntryForm(context, null);
-                if (data != null) {
-                  int result = await dbHelper.insertMataKuliah(data);
-                  if (result > 0) {
-                    updateListView();
-                  }
-                }
-              },
-            ),
-          ),
-        ),
       ]),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          var data = await navigateToEntryForm(context, null);
+          if (data != null) {
+            int result = await dbHelper.insertMataKuliah(data);
+            if (result > 0) {
+              updateListView();
+            }
+          }
+        },
+        child: Icon(
+          //membuat icon
+          Icons.note_add,
+          size: 50,
+          color: Colors.black,
+        ),
+        backgroundColor: Colors.yellow[700],
+      ),
     );
   }
 
-  Future<MataKuliah> navigateToEntryForm(BuildContext context, MataKuliah mataKuliah) async {
+  Future<MataKuliah> navigateToEntryForm(
+      BuildContext context, MataKuliah mataKuliah) async {
     var result = await Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) {
-   return EntryForm(mataKuliah);
+      return EntryForm(mataKuliah);
     }));
     return result;
   }
@@ -71,35 +71,90 @@ class HomeMatkulState extends State<HomeMatkul> {
       itemCount: count,
       itemBuilder: (BuildContext context, int index) {
         return Card(
-          color: Colors.white,
+          color: Colors.purple[100],
           elevation: 2.0,
           child: ListTile(
             leading: CircleAvatar(
-              backgroundColor: Colors.red,
-              child: Icon(Icons.ad_units),
+              child: Icon(Icons.book),
             ),
             title: Text(
               this.mataKulihList[index].kodeMatkul.toString(),
-              style: textStyle,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
             ),
-            subtitle: Text(this.mataKulihList[index].namaMatkul),
-            trailing: GestureDetector(
-              child: Icon(Icons.delete),
-              onTap: () async {
-                dbHelper.deleteMataKuliah(this.mataKulihList[index].id);
-                updateListView();
-              },
+
+            // subtitle:
+            //  Text(this.mataKulihList[index].namaMatkul),
+
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Nama Matakuliah : " + this.mataKulihList[index].namaMatkul,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                ),
+                Text(
+                  "SKS : " + this.mataKulihList[index].sks.toString(),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                ),
+              ],
             ),
-            onTap: () async {
-              var data =
-                  await navigateToEntryForm(context, this.mataKulihList[index]);
-              if (data != null) {
-                int result = await dbHelper.updateMataKuliah(data);
-                if (result > 0) {
-                  updateListView();
-                }
-              }
-            },
+            //           trailing: GestureDetector(
+            //             child: Icon(Icons.delete),
+            //             onTap: () async {
+            //               dbHelper.deleteMataKuliah(this.mataKulihList[index].id);
+            //               updateListView();
+            //             },
+            //           ),
+            //           onTap: () async {
+            //             var data =
+            //                 await navigateToEntryForm(context, this.mataKulihList[index]);
+            //             if (data != null) {
+            //               int result = await dbHelper.updateMataKuliah(data);
+            //               if (result > 0) {
+            //                 updateListView();
+            //               }
+            //             }
+            //           },
+            //         ),
+            //       );
+            //     },
+            //   );
+            // }
+            // widget yang akan menampilkan setelah title
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.rate_review),
+                  onPressed: () async {
+                    var data = await navigateToEntryForm(
+                        context, this.mataKulihList[index]);
+                    if (data != null) {
+                      int result = await dbHelper.updateMataKuliah(data);
+                      if (result > 0) {
+                        updateListView();
+                      }
+                    }
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () async {
+                    dbHelper.deleteMataKuliah(this.mataKulihList[index].id);
+                    updateListView();
+                  },
+                )
+              ],
+            ),
           ),
         );
       },
@@ -110,8 +165,9 @@ class HomeMatkulState extends State<HomeMatkul> {
   void updateListView() {
     final Future<Database> dbFuture = dbHelper.initDb();
     dbFuture.then((database) {
-      Future<List<MataKuliah>> mataKuliahListFuture = dbHelper.getMataKuliahList();
-     mataKuliahListFuture.then((mataKuliahList) {
+      Future<List<MataKuliah>> mataKuliahListFuture =
+          dbHelper.getMataKuliahList();
+      mataKuliahListFuture.then((mataKuliahList) {
         setState(() {
           this.mataKulihList = mataKuliahList;
           this.count = mataKuliahList.length;
