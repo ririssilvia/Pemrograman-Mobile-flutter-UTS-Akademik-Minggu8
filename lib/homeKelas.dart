@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:uts/DBHelper/dbhelper.dart';
 import 'package:uts/Model/kelas.dart';
-
 import 'kelasEntryForm.dart';
 
 class HomeKelas extends StatefulWidget {
@@ -125,7 +124,7 @@ class HomeKelasState extends State<HomeKelas> {
                 IconButton(
                   icon: Icon(Icons.delete),
                   onPressed: () async {
-                    dbHelper.deleteMahasiswa(this.kelasList[index].id);
+                    dbHelper.deleteKelas(this.kelasList[index].id);
                     updateListView();
                   },
                 )

@@ -188,7 +188,7 @@ class Home extends StatelessWidget {
                             ),
                             child: Icon(
                               //membuat icon
-                              Icons.collections_bookmark_outlined,
+                              Icons.roofing_outlined ,
                               size: 60,
                               color: Colors.black,
                             ),
