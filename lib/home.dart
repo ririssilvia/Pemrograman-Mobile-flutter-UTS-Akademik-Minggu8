@@ -187,15 +187,15 @@ class Home extends StatelessWidget {
                             ),
                             child: Icon(
                               //membuat icon
-                              Icons.book_rounded,
-                              size: 50,
+                              Icons.person,
+                              size: 60,
                               color: Colors.black,
                             ),
                           ),
                           Container(
                             margin: EdgeInsets.only(top: 20),
                             child: Text(
-                              "Ambil MataKuliah",
+                              "Dosen",
                               style:
                                   TextStyle(fontSize: 20, color: Colors.black),
                             ),

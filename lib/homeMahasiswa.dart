@@ -48,7 +48,7 @@ class HomeMhsState extends State<HomeMhs> {
         },
         child: Icon(
           //membuat icon
-          Icons.add,
+          Icons.person_add_outlined,
           size: 50,
           color: Colors.black,
         ),
@@ -116,7 +116,7 @@ class HomeMhsState extends State<HomeMhs> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
-                  icon: Icon(Icons.edit),
+                  icon: Icon(Icons.rate_review),
                   onPressed: () async {
                     var data = await navigateToEntryForm(
                         context, this.mahasiswaList[index]);
