@@ -119,15 +119,12 @@ class EntryFormState extends State<EntryForm> {
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    // tombol simpan
-                    Expanded(
-                      child: ElevatedButton(
-                        child: Text(
-                          'Save',
-                          textScaleFactor: 1.5,
-                        ),
-                        onPressed: () {
+                     Container(
+                      child: FloatingActionButton.extended(
+                        //button with an optional icon and label
+                          onPressed: () {
                           if (mahasiswa == null) {
                             // tambah data
                             mahasiswa = Mahasiswa(
@@ -147,24 +144,28 @@ class EntryFormState extends State<EntryForm> {
                           // kembali ke layar sebelumnya dengan membawa objek item
                           Navigator.pop(context, mahasiswa);
                         },
+                        backgroundColor: Colors.purple,
+                        icon: Icon(Icons.archive_outlined),
+                        label: Text('Save',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                     Container(
-                      width: 5.0,
+                      width: 30,
                     ),
                     // tombol batal
-                    Expanded(
-                      child: ElevatedButton(
-                        child: Text(
-                          'Cancel',
-                          textScaleFactor: 1.5,
-                        ),
+                      Container(
+                      child: FloatingActionButton.extended(
+                        //button with an optional icon and label
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.purple,
-                            textStyle: TextStyle(fontWeight: FontWeight.bold)),
+                        backgroundColor: Colors.red,
+                        icon: Icon(Icons.cancel_schedule_send),
+                        label: Text('Cancel',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ],
