@@ -24,7 +24,7 @@ class Kelas {
   // konstruktor versi 2: konversi dari Map ke Mapel
   Kelas.fromMap(Map<String, dynamic> map) {
     this._id = map['id'];
-    this._kodeKelas= map['kodeKleas'];
+    this._kodeKelas= map['kodeKelas'];
     this._namaKelas= map['namaKelas'];
     this._keterangan = map['keterangan'];
   }

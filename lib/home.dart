@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uts/homeKelas.dart';
 import 'package:uts/homeMahasiswa.dart';
 import 'package:uts/homeMatakuliah.dart';
 
@@ -159,12 +160,12 @@ class Home extends StatelessWidget {
                     child: RaisedButton(
                       color: Colors.yellow,
                       onPressed: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => HomeMhs(),
-                        //     ),
-                        //     );
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HomeKelas(),
+                            ),
+                            );
                       },
                       padding: EdgeInsets.only(
                           left: 25, top: 15, right: 25, bottom: 40),
@@ -195,7 +196,7 @@ class Home extends StatelessWidget {
                           Container(
                             margin: EdgeInsets.only(top: 20),
                             child: Text(
-                              "Ambil Matakuliah",
+                              "Ruang Kelas",
                               style:
                                   TextStyle(fontSize: 20, color: Colors.black),
                             ),

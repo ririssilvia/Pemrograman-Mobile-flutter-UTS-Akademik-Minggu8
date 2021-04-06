@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:io';
 //bekerja pada file dan directory
 import 'package:path_provider/path_provider.dart';
+import 'package:uts/Model/kelas.dart';
 import 'package:uts/Model/mahasiswa.dart';
 import 'package:uts/Model/mataKuliah.dart';
 
@@ -21,7 +22,7 @@ class DbHelper {
     String path = directory.path + 'akademik.db';
     //create, read databases
     var akademikDatabase = openDatabase(path,
-        version: 1, 
+        version: 3, 
         onCreate: _createDb, 
         onUpgrade: _onUpgrade
         );
@@ -56,6 +57,15 @@ class DbHelper {
               sks INTEGER
             )
               ''');
+    //Tabel Kelas
+    batch.execute('''
+              CREATE TABLE kelas (
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              kodeKelas TEXT,
+              namaKelas TEXT,
+              keterangan TEXT
+            )
+              ''');
 
     await batch.commit();
 
@@ -77,6 +87,13 @@ class DbHelper {
     return mapList;
   }
 
+  //select databases kelas
+  Future<List<Map<String, dynamic>>> selectKelas() async {
+    Database db = await this.initDb();
+    var mapList = await db.query('kelas', orderBy: 'kodeKelas');
+    return mapList;
+  }
+
   //insert data pada tabel Mahasiswa
   Future<int> insertMahasiswa(Mahasiswa object) async {
     Database db = await this.initDb();
@@ -88,6 +105,13 @@ class DbHelper {
   Future<int> insertMataKuliah(MataKuliah object) async {
     Database db = await this.initDb();
     int count = await db.insert('mataKuliah', object.toMap());
+    return count;
+  }
+
+  //insert data pada tabel Kelas
+  Future<int> insertKelas(Kelas object) async {
+    Database db = await this.initDb();
+    int count = await db.insert('kelas', object.toMap());
     return count;
   }
 
@@ -107,6 +131,14 @@ class DbHelper {
     return count;
   }
 
+    //update data pada tabel MataKuliah
+  Future<int> updateKelas(Kelas object) async {
+    Database db = await this.initDb();
+    int count = await db
+        .update('kelas', object.toMap(), where: 'id=?', whereArgs: [object.id]);
+    return count;
+  }
+
   //delete data pada tabel Mahasiswa
   Future<int> deleteMahasiswa(int id) async {
     Database db = await this.initDb();
@@ -118,6 +150,13 @@ class DbHelper {
    Future<int> deleteMataKuliah(int id) async {
     Database db = await this.initDb();
     int count = await db.delete('mataKuliah', where: 'id=?', whereArgs: [id]);
+    return count;
+  }
+
+   //delete data pada tabel Kelas
+   Future<int> deleteKelas(int id) async {
+    Database db = await this.initDb();
+    int count = await db.delete('kelas', where: 'id=?', whereArgs: [id]);
     return count;
   }
  
@@ -139,6 +178,17 @@ class DbHelper {
     List<MataKuliah> itemList = List<MataKuliah>();
     for (int i = 0; i < count; i++) {
       itemList.add(MataKuliah.fromMap(itemMapList[i]));
+    }
+    return itemList;
+  }
+
+    // list data dalam tabel Kelas
+   Future<List<Kelas>> getKelasList() async {
+    var itemMapList = await selectKelas();
+    int count = itemMapList.length;
+    List<Kelas> itemList = List<Kelas>();
+    for (int i = 0; i < count; i++) {
+      itemList.add(Kelas.fromMap(itemMapList[i]));
     }
     return itemList;
   }
