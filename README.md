@@ -11,7 +11,7 @@ This project is a starting point for a Flutter application.
 <li><b>NIM   : 1931710085
 
 # Hasil Bentuk Video
-![plot](./image/uts.gif)
+![screenshot](image/uts.gif)
 <br>
 
 
