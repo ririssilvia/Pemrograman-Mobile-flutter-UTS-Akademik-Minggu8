@@ -74,7 +74,7 @@ class HomeKelasState extends State<HomeKelas> {
           color: Colors.purple[100],
           child: ListTile(
             leading: CircleAvatar(
-              child: Icon(Icons.people),
+              child: Icon(Icons.roofing_outlined),
             ),
             title: Text(
               this.kelasList[index].kodeKelas,

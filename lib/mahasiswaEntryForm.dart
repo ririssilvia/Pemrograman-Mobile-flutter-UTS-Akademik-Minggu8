@@ -112,10 +112,12 @@ class EntryFormState extends State<EntryForm> {
                 ),
               ),
                Padding(
-              padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+              padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
               child: DropdownButtonFormField<String>(
+                
                 decoration: InputDecoration(
                   labelText: 'Select ambil Matakulaih',
+                   icon: Icon(Icons.arrow_drop_down_circle),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
