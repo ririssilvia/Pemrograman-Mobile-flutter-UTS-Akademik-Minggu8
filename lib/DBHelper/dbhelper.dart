@@ -22,7 +22,7 @@ class DbHelper {
     String path = directory.path + 'akademik.db';
     //create, read databases
     var akademikDatabase = openDatabase(path,
-        version: 1, 
+        version: 3, 
         onCreate: _createDb, 
         onUpgrade: _onUpgrade
         );
@@ -38,12 +38,17 @@ class DbHelper {
   //untuk membuat tabel baru dengan nama mahasiswa dan matakuliah
   void _createDb(Database db, int version) async {
     var batch = db.batch();
+
+    batch.execute('DROP TABLE IF EXISTS mahasiswa');
+    batch.execute('DROP TABLE IF EXISTS mataKuliah');
+    batch.execute('DROP TABLE IF EXISTS kelas');
     //tabel mahasiswa
    batch.execute('''
               CREATE TABLE mahasiswa (
               id INTEGER PRIMARY KEY AUTOINCREMENT,
               nim TEXT,
               nama TEXT,
+              ambilMatkul TEXT,
               jenisKelamin TEXT,
               alamat TEXT
               )
@@ -54,6 +59,7 @@ class DbHelper {
               id INTEGER PRIMARY KEY AUTOINCREMENT,
               kodeMatkul TEXT,
               namaMatkul TEXT,
+              kelas TEXT,
               sks INTEGER
             )
               ''');

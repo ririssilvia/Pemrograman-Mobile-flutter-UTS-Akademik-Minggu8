@@ -99,6 +99,13 @@ class HomeMatkulState extends State<HomeMatkul> {
                   ),
                 ),
                 Text(
+                  "Kelas : " + this.mataKulihList[index].kelas,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                ),
+                Text(
                   "SKS : " + this.mataKulihList[index].sks.toString(),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -107,29 +114,6 @@ class HomeMatkulState extends State<HomeMatkul> {
                 ),
               ],
             ),
-            //           trailing: GestureDetector(
-            //             child: Icon(Icons.delete),
-            //             onTap: () async {
-            //               dbHelper.deleteMataKuliah(this.mataKulihList[index].id);
-            //               updateListView();
-            //             },
-            //           ),
-            //           onTap: () async {
-            //             var data =
-            //                 await navigateToEntryForm(context, this.mataKulihList[index]);
-            //             if (data != null) {
-            //               int result = await dbHelper.updateMataKuliah(data);
-            //               if (result > 0) {
-            //                 updateListView();
-            //               }
-            //             }
-            //           },
-            //         ),
-            //       );
-            //     },
-            //   );
-            // }
-            // widget yang akan menampilkan setelah title
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [

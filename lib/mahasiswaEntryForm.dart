@@ -6,9 +6,7 @@ import 'package:uts/Model/mataKuliah.dart';
 
 class EntryForm extends StatefulWidget {
   final Mahasiswa mahasiswa;
-
   EntryForm(this.mahasiswa);
-
   @override
   EntryFormState createState() => EntryFormState(this.mahasiswa);
 }
@@ -16,7 +14,8 @@ class EntryForm extends StatefulWidget {
 //class controller
 class EntryFormState extends State<EntryForm> {
   Mahasiswa mahasiswa;
-
+  MataKuliah mataKuliah;
+  DbHelper dbHelper = DbHelper();
   EntryFormState(this.mahasiswa);
 
   TextEditingController nimController = TextEditingController();
@@ -24,30 +23,31 @@ class EntryFormState extends State<EntryForm> {
   TextEditingController jenisKelaminController = TextEditingController();
   TextEditingController alamatController = TextEditingController();
 
-  String dropdownMataKuliah;
-  DbHelper dbHelper = DbHelper();
-  
-   int count = 0;
-  List<MataKuliah> matkulList = [];
+  List<MataKuliah> mataKuliahList = List<MataKuliah>();
+  List<String> listmataKuliah = List<String>();
 
-   void dropDownMatkul() async {
+  int indexList = 0;
+
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    updateListView();
+  }
+
+  void updateListView() {
     final Future<Database> dbFuture = dbHelper.initDb();
-
     dbFuture.then((database) {
-      Future<List<MataKuliah>> itemMatkulListFuture = dbHelper.getMataKuliahList();
-      itemMatkulListFuture.then((matkulList) {
+      //TODO 1 Select data dari DB
+      Future<List<MataKuliah>> mataKuliahListFuture = dbHelper.getMataKuliahList();
+      mataKuliahListFuture.then((mataKuliahList) {
         setState(() {
-          this.matkulList  = matkulList ;
-          this.dropdownMataKuliah = matkulList[0].namaMatkul;
-          this.count = matkulList.length;
+          for (int i = 0; i < mataKuliahList.length; i++) {
+            listmataKuliah.add(mataKuliahList[i].namaMatkul);
+          }
         });
       });
     });
-  }
-
-  void initState() {
-    super.initState();
-    dropDownMatkul();
   }
 
   @override
@@ -111,24 +111,30 @@ class EntryFormState extends State<EntryForm> {
                   },
                 ),
               ),
-            //     Padding(
-            //   padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-            //   child: DropdownButton<String>(
-            //     isExpanded: true,
-            //     value: dropdownMataKuliah,
-            //     items: matkulList.map((value) {
-            //       return new DropdownMenuItem<String>(
-            //         value: value.namaMatkul.toString(),
-            //         child: new Text(
-            //           value.namaMatkul,
-            //         ),
-            //       );
-            //     }).toList(),
-            //     onChanged: (selectedItem) => setState(() {
-            //       dropdownMataKuliah = selectedItem;
-            //     }),
-            //   ),
-            // ),
+               Padding(
+              padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+              child: DropdownButtonFormField<String>(
+                decoration: InputDecoration(
+                  labelText: 'Select ambil Matakulaih',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                ),
+                value: listmataKuliah[indexList],
+                items: listmataKuliah.map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (String value) {
+                  int i = listmataKuliah.indexOf(value);
+                  setState(() {
+                    indexList = i;
+                  });
+                },
+              ),
+            ),
               // jenisKelamain
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
@@ -181,14 +187,15 @@ class EntryFormState extends State<EntryForm> {
                             mahasiswa = Mahasiswa(
                                 nimController.text,
                                 namaController.text,
+                                listmataKuliah[indexList].toString(),
                                 jenisKelaminController.text,
                                 alamatController.text);
                           } else {
                             // ubah data
                             mahasiswa.nim = nimController.text;
                             mahasiswa.nama = namaController.text;
-                            mahasiswa.jenisKelamin =
-                            jenisKelaminController.text;
+                            mahasiswa.ambilMatkul = listmataKuliah[indexList].toString();
+                            mahasiswa.jenisKelamin =jenisKelaminController.text;
                             mahasiswa.alamat = alamatController.text;
                           }
 

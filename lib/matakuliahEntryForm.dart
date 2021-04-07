@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:uts/DBHelper/dbhelper.dart';
+import 'package:uts/Model/kelas.dart';
 import 'package:uts/Model/mataKuliah.dart';
 
 class EntryForm extends StatefulWidget {
@@ -11,10 +14,39 @@ class EntryForm extends StatefulWidget {
 //class controller
 class EntryFormState extends State<EntryForm> {
   MataKuliah mataKuliah;
+  Kelas kelas;
+  DbHelper dbHelper = DbHelper();
   EntryFormState(this.mataKuliah);
   TextEditingController kodeMatakulController = TextEditingController();
   TextEditingController namaMatkulController = TextEditingController();
   TextEditingController sksController = TextEditingController();
+
+  List<Kelas> kelasList = List<Kelas>();
+  List<String> listKelas = List<String>();
+
+  int indexList = 0;
+
+   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    updateListView();
+  }
+
+  void updateListView() {
+    final Future<Database> dbFuture = dbHelper.initDb();
+    dbFuture.then((database) {
+      //TODO 1 Select data dari DB
+      Future<List<Kelas>> kelasListFuture = dbHelper.getKelasList();
+     kelasListFuture.then((kelasList) {
+        setState(() {
+          for (int i = 0; i < kelasList.length; i++) {
+            listKelas.add(kelasList[i].namaKelas);
+          }
+        });
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +108,30 @@ class EntryFormState extends State<EntryForm> {
                   },
                 ),
               ),
+              Padding(
+              padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+              child: DropdownButtonFormField<String>(
+                decoration: InputDecoration(
+                  labelText: 'Select Kelas',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                ),
+                value: listKelas[indexList],
+                items: listKelas.map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (String value) {
+                  int i = listKelas.indexOf(value);
+                  setState(() {
+                    indexList = i;
+                  });
+                },
+              ),
+            ),
               // sks
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
@@ -110,11 +166,13 @@ class EntryFormState extends State<EntryForm> {
                             mataKuliah = MataKuliah(
                                 kodeMatakulController.text,
                                 namaMatkulController.text,
+                                listKelas[indexList].toString(),
                                 int.parse(sksController.text));
                           } else {
                             // ubah data
                             mataKuliah.kodeMatkul = kodeMatakulController.text;
                             mataKuliah.namaMatkul = namaMatkulController.text;
+                            mataKuliah.kelas = listKelas[indexList].toString();
                             mataKuliah.sks = int.parse(sksController.text);
                           }
 
