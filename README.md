@@ -27,40 +27,40 @@ samples, guidance on mobile development, and a full API reference.
 # Main Menu
 ![plot](./image/1.png)
 
-## Halaman Kelas
-# Tambah Data Pada tabel Kelas
+# Halaman Kelas
+## Tambah Data Pada tabel Kelas
 ![plot](./image/2.png)
 ![plot](./image/3.png)
 
-# Edit Data Pada tabel Kelas
+## Edit Data Pada tabel Kelas
 ![plot](./image/14.png)
 ![plot](./image/15.png)
 
-# Delete Data Pada item tabel Kelas
+## Delete Data Pada item tabel Kelas
 ![plot](./image/4.png)
 
-## Halaman MataKulaih
-# Tambah Data Pada tabel matakuliah
+# Halaman MataKulaih
+## Tambah Data Pada tabel matakuliah
 ![plot](./image/5.png)
 ![plot](./image/6.png)
 
-# Edit Data Pada tabel matakuliah
+## Edit Data Pada tabel matakuliah
 ![plot](./image/7.png)
 ![plot](./image/8.png)
 
-# Delete Data Pada item tabel matakulaih
+## Delete Data Pada item tabel matakulaih
 ![plot](./image/9.png)
 
-## Halaman Mahasiswa
-# Tambah Data Pada tabel Mahasiswa
+# Halaman Mahasiswa
+## Tambah Data Pada tabel Mahasiswa
 ![plot](./image/10.png)
 ![plot](./image/11.png)
 
-# Edit Data Pada tabel Mahasiswa
+## Edit Data Pada tabel Mahasiswa
 ![plot](./image/12.png)
 ![plot](./image/13.png)
 
-# Delete Data Pada item tabel Mahasiswa
+## Delete Data Pada item tabel Mahasiswa
 ![plot](./image/11.png)
 ![plot](./image/13.png)
 
