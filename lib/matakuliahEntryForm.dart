@@ -6,22 +6,29 @@ import 'package:uts/Model/mataKuliah.dart';
 
 class EntryForm extends StatefulWidget {
   final MataKuliah mataKuliah;
+
   EntryForm(this.mataKuliah);
+
   @override
   EntryFormState createState() => EntryFormState(this.mataKuliah);
 }
 
 //class controller
 class EntryFormState extends State<EntryForm> {
+  //mendeklarasikan model matakuliah untuk di pakai di class entryformmatakuliah
   MataKuliah mataKuliah;
+  //mendeklarasikan model kelas untuk di pakai di class entryformmatakuliah
   Kelas kelas;
+
   DbHelper dbHelper = DbHelper();
   EntryFormState(this.mataKuliah);
   TextEditingController kodeMatakulController = TextEditingController();
   TextEditingController namaMatkulController = TextEditingController();
   TextEditingController sksController = TextEditingController();
 
+  //mendeklarasikan kelaslist untuk menampung saat update list kelas
   List<Kelas> kelasList = List<Kelas>();
+  //mendeklarasikan kelaslist untuk menampung saat di add pada  list kelas
   List<String> listKelas = List<String>();
 
   int indexList = 0;
@@ -108,6 +115,8 @@ class EntryFormState extends State<EntryForm> {
                   },
                 ),
               ),
+
+              //dropdown kelass
               Padding(
               padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
               child: DropdownButtonFormField<String>(
@@ -146,9 +155,6 @@ class EntryFormState extends State<EntryForm> {
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                   ),
-                  onChanged: (value) {
-                    //
-                  },
                 ),
               ),
 

@@ -1,10 +1,13 @@
 class MataKuliah {
+  //membuat atribut untuk tabel matkul
   int _id;
   String _kodeMatkul;
   String _namaMatkul;
   String _kelas;
   int _sks;
  
+ //getter akan mengambil nilai yang dimasukkan ke consturctor
+ //setter ini akan dipakai untuk mengembalikan nilai yang dimasukkan dari constructor
     get id => this._id;
 
     String get kelas => this._kelas;
@@ -23,7 +26,7 @@ class MataKuliah {
   // konstruktor versi 1
   MataKuliah(this._kodeMatkul, this._namaMatkul, this._kelas, this._sks);
 
-  // konstruktor versi 2: konversi dari Map ke Mapel
+  // konstruktor versi 2: konversi dari Map ke Matkul
   MataKuliah.fromMap(Map<String, dynamic> map) {
     this._id = map['id'];
     this._kodeMatkul = map['kodeMatkul'];
@@ -32,7 +35,7 @@ class MataKuliah {
     this._sks = map['sks'];
   }
 
-  // konversi dari Mapel ke Map
+  // konversi dari matkul ke Map
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = Map<String, dynamic>();
     map['id'] = this._id;

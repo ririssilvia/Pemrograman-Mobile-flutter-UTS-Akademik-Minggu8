@@ -17,6 +17,7 @@ class HomeMhsState extends State<HomeMhs> {
   List<Mahasiswa> mahasiswaList;
 
   @override
+   //menampilkan data yang sudah diinputkan ketika pertama kali membuka aplikasi
   void initState() {
     super.initState();
     updateListView();
@@ -36,6 +37,7 @@ class HomeMhsState extends State<HomeMhs> {
           child: createListView(),
         ),
       ]),
+      //add data mahasiswa
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           var data = await navigateToEntryForm(context, null);
@@ -78,6 +80,7 @@ class HomeMhsState extends State<HomeMhs> {
             leading: CircleAvatar(
               child: Icon(Icons.people),
             ),
+            //menampilkan data yang di add di home 
             title: Text(
               this.mahasiswaList[index].nim.toString(),
               style: TextStyle(
@@ -85,6 +88,7 @@ class HomeMhsState extends State<HomeMhs> {
                 fontSize: 20,
               ),
             ),
+
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -119,6 +123,7 @@ class HomeMhsState extends State<HomeMhs> {
               ],
             ),
 
+            //button eidt data
             // widget yang akan menampilkan setelah title
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
@@ -136,6 +141,7 @@ class HomeMhsState extends State<HomeMhs> {
                     }
                   },
                 ),
+                //button hapus data
                 IconButton(
                   icon: Icon(Icons.delete),
                   onPressed: () async {

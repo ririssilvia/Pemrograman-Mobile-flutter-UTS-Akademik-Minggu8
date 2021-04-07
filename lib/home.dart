@@ -5,9 +5,6 @@ import 'package:uts/homeMatakuliah.dart';
 
 class Home extends StatelessWidget {
   // This widget is the root of your application.
-  const Home({
-    Key key,
-  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +18,13 @@ class Home extends StatelessWidget {
           color: Colors.white,
         ),
       ),
+
       body: Container(
-        
         margin: EdgeInsets.only(left: 15, top: 15, right: 15),
         height: 600,
         decoration: BoxDecoration(
           color: Colors.purple[200],
-          borderRadius: BorderRadius.circular(20), //membuat border radius
+          borderRadius: BorderRadius.circular(20), //untuk membuat border radius
           boxShadow: [
             BoxShadow(
               //membuat shadow
@@ -41,6 +38,7 @@ class Home extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            //menambahkan gambar 
           Container(
             child: Image.network(
                 'https://merdekabelajar.unm.ac.id/assets/img/ir.png'),
@@ -64,13 +62,12 @@ class Home extends StatelessWidget {
                       padding: EdgeInsets.only(
                           left: 25, top: 15, right: 25, bottom: 40),
                       child: Column(
-                        //untuk menempatkan icon dan teks di setiap raised button secara vertikal
+                        //untuk menempatkan icon dan teks di setiap raised button secara vertika
                         children: [
                           Container(
                             decoration: BoxDecoration(
                               color: Colors.purple[200],
-                              borderRadius: BorderRadius.circular(
-                                  100), //membuat border radius
+                              borderRadius: BorderRadius.circular(100), //membuat border radius
                               boxShadow: [
                                 BoxShadow(
                                   //membuat shadow
@@ -81,7 +78,7 @@ class Home extends StatelessWidget {
                               ],
                             ),
                             child: Icon(
-                              //membuat icon
+                              //membuat icon untuk mahasiswa
                               Icons.people_outline_rounded,
                               size: 50,
                               color: Colors.black,
@@ -113,13 +110,12 @@ class Home extends StatelessWidget {
                       padding: EdgeInsets.only(
                           left: 30, top: 15, right: 30, bottom: 40),
                       child: Column(
-                        //untuk menempatkan icon dan teks di setiap raised button secara vertikal
+                        //untuk menempatkan icon dan teks di setiap raised button 
                         children: [
                           Container(
                             decoration: BoxDecoration(
                               color: Colors.purple[200],
-                              borderRadius: BorderRadius.circular(
-                                  100), //membuat border radius
+                              borderRadius: BorderRadius.circular(100), //membuat border radius
                               boxShadow: [
                                 BoxShadow(
                                   //membuat shadow
@@ -130,7 +126,7 @@ class Home extends StatelessWidget {
                               ],
                             ),
                             child: Icon(
-                              //membuat icon
+                              //membuat icon matakuliah
                               Icons.library_books,
                               size: 50,
                               color: Colors.black,
@@ -175,8 +171,7 @@ class Home extends StatelessWidget {
                           Container(
                             decoration: BoxDecoration(
                               color: Colors.purple[200],
-                              borderRadius: BorderRadius.circular(
-                                  100), //membuat border radius
+                              borderRadius: BorderRadius.circular(100), //membuat border radius
                               boxShadow: [
                                 BoxShadow(
                                   //membuat shadow
@@ -187,7 +182,7 @@ class Home extends StatelessWidget {
                               ],
                             ),
                             child: Icon(
-                              //membuat icon
+                              //membuat icon kelas
                               Icons.roofing_outlined ,
                               size: 60,
                               color: Colors.black,
@@ -205,17 +200,12 @@ class Home extends StatelessWidget {
                       ),
                     ),
                   ),
-
                 ],
-
               ),
             ),
-            
-            
           ],
         ),
-      ),
-      
+      ), 
     );
   }
 }

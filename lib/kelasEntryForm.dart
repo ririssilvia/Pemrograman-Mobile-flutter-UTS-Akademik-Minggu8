@@ -3,7 +3,9 @@ import 'package:uts/Model/kelas.dart';
 
 class EntryForm extends StatefulWidget{
   final Kelas kelas;
+
   EntryForm(this.kelas);
+
   @override
   EntryFormState createState() => EntryFormState(this.kelas);
 }
@@ -119,7 +121,7 @@ class EntryFormState extends State<EntryForm> {
                             kelas.keterangan =  keteranganController.text;
                           }
 
-                          // kembali ke layar sebelumnya dengan membawa objek item
+                          // kembali ke layar sebelumnya dengan membawa objek kelas
                           Navigator.pop(context, kelas);
                         },
                         backgroundColor: Colors.purple,

@@ -38,10 +38,6 @@ class DbHelper {
   //untuk membuat tabel baru dengan nama mahasiswa dan matakuliah
   void _createDb(Database db, int version) async {
     var batch = db.batch();
-
-    batch.execute('DROP TABLE IF EXISTS mahasiswa');
-    batch.execute('DROP TABLE IF EXISTS mataKuliah');
-    batch.execute('DROP TABLE IF EXISTS kelas');
     //tabel mahasiswa
    batch.execute('''
               CREATE TABLE mahasiswa (

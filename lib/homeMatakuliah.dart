@@ -16,6 +16,7 @@ class HomeMatkulState extends State<HomeMatkul> {
   List<MataKuliah> mataKulihList;
 
   @override
+   //menampilkan data yang sudah diinputkan ketika pertama kali membuka aplikasi
   void initState() {
     super.initState();
     updateListView();
@@ -35,6 +36,7 @@ class HomeMatkulState extends State<HomeMatkul> {
           child: createListView(),
         ),
       ]),
+      //button add data matakuliah
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           var data = await navigateToEntryForm(context, null);
@@ -77,6 +79,7 @@ class HomeMatkulState extends State<HomeMatkul> {
             leading: CircleAvatar(
               child: Icon(Icons.book),
             ),
+            //menampilkan data yang telah di add di home 
             title: Text(
               this.mataKulihList[index].kodeMatkul.toString(),
               style: TextStyle(
@@ -84,9 +87,6 @@ class HomeMatkulState extends State<HomeMatkul> {
                 fontSize: 20,
               ),
             ),
-
-            // subtitle:
-            //  Text(this.mataKulihList[index].namaMatkul),
 
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,6 +114,8 @@ class HomeMatkulState extends State<HomeMatkul> {
                 ),
               ],
             ),
+
+            //button untuk edit data
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -130,6 +132,8 @@ class HomeMatkulState extends State<HomeMatkul> {
                     }
                   },
                 ),
+
+                //button untuk hapus data
                 IconButton(
                   icon: Icon(Icons.delete),
                   onPressed: () async {

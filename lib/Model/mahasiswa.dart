@@ -1,4 +1,5 @@
 class Mahasiswa {
+  //membuat atribut pada tabel mahasiswa
   int _id;
   String _nim;
   String _nama;
@@ -6,8 +7,8 @@ class Mahasiswa {
   String _jenisKelamin;
   String  _alamat;
 
-
-
+//getter akan mengambil nilai yang dimasukkan ke consturctor
+ //setter ini akan dipakai untuk mengembalikan nilai yang dimasukkan dari constructor
   get id => this._id;
 
   get nim => this._nim;
@@ -29,7 +30,7 @@ class Mahasiswa {
   // konstruktor versi 1
   Mahasiswa(this._nim, this._nama,this._ambilMatkul, this._jenisKelamin, this._alamat);
 
-  // konstruktor versi 2: konversi dari Map ke Mapel
+  // konstruktor versi 2: konversi dari Map ke Mhs
   Mahasiswa.fromMap(Map<String, dynamic> map) {
     this._id = map['id'];
     this._nim= map['nim'];
@@ -39,7 +40,7 @@ class Mahasiswa {
     this._alamat = map['alamat'];
   }
 
-  // konversi dari Mapel ke Map
+  // konversi dari Mhs ke Map
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = Map<String, dynamic>();
     map['id'] = this._id;

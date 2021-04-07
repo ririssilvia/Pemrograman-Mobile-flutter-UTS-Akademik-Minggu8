@@ -12,9 +12,11 @@ class HomeKelas extends StatefulWidget {
 class HomeKelasState extends State<HomeKelas> {
   DbHelper dbHelper = DbHelper();
   int count = 0;
+  //mengambil model kelas untuk di jadikan kelas list
   List<Kelas> kelasList;
 
   @override
+  //menampilkan data yang sudah diinputkan ketika pertama kali membuka aplikasi
   void initState() {
     super.initState();
     updateListView();
@@ -34,6 +36,8 @@ class HomeKelasState extends State<HomeKelas> {
           child: createListView(),
         ),
       ]),
+
+      //button add data
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           var data = await navigateToEntryForm(context, null);
@@ -76,6 +80,7 @@ class HomeKelasState extends State<HomeKelas> {
             leading: CircleAvatar(
               child: Icon(Icons.roofing_outlined),
             ),
+
             title: Text(
               this.kelasList[index].kodeKelas,
               style: TextStyle(
@@ -83,6 +88,7 @@ class HomeKelasState extends State<HomeKelas> {
                 fontSize: 20,
               ),
             ),
+
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -103,7 +109,7 @@ class HomeKelasState extends State<HomeKelas> {
                 
               ],
             ),
-
+            //button edit
             // widget yang akan menampilkan setelah title
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
@@ -121,6 +127,7 @@ class HomeKelasState extends State<HomeKelas> {
                     }
                   },
                 ),
+                //button delete
                 IconButton(
                   icon: Icon(Icons.delete),
                   onPressed: () async {

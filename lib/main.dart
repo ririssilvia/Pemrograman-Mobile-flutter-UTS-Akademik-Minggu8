@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
+      //memangil fungsi home pada file home.dart
       home: Home(),
     );
   }
