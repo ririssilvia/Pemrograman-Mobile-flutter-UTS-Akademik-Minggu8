@@ -22,7 +22,7 @@ class DbHelper {
     String path = directory.path + 'akademik.db';
     //create, read databases
     var akademikDatabase = openDatabase(path,
-        version: 3, 
+        version: 4, 
         onCreate: _createDb, 
         onUpgrade: _onUpgrade
         );
@@ -149,16 +149,20 @@ class DbHelper {
   }
 
   //delete data pada tabel MataKuliah
-   Future<int> deleteMataKuliah(int id) async {
+   Future<int> deleteMataKuliah(int id, String namaMatkul) async {
     Database db = await this.initDb();
-    int count = await db.delete('mataKuliah', where: 'id=?', whereArgs: [id]);
+    int count = 
+    await db.delete('mataKuliah', where: 'id=?', whereArgs: [id]);
+    int count1= await db.delete('mahasiswa', where: 'ambilMatkul=?', whereArgs: [namaMatkul]);
     return count;
   }
 
   //delete data pada tabel Kelas
-   Future<int> deleteKelas(int id) async {
+   Future<int> deleteKelas(int id, String namakelas) async {
     Database db = await this.initDb();
-    int count = await db.delete('kelas', where: 'id=?', whereArgs: [id]);
+    int count = 
+    await db.delete('kelas', where: 'id=?', whereArgs: [id]);
+    int count1= await db.delete('mataKuliah', where: 'kelas=?', whereArgs: [namakelas]);
     return count;
   }
  

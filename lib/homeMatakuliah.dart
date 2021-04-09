@@ -137,7 +137,7 @@ class HomeMatkulState extends State<HomeMatkul> {
                 IconButton(
                   icon: Icon(Icons.delete),
                   onPressed: () async {
-                    dbHelper.deleteMataKuliah(this.mataKulihList[index].id);
+                    dbHelper.deleteMataKuliah(this.mataKulihList[index].id,this.mataKulihList[index].namaMatkul);
                     updateListView();
                   },
                 )

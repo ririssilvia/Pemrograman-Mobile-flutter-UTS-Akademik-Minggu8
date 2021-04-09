@@ -131,7 +131,7 @@ class HomeKelasState extends State<HomeKelas> {
                 IconButton(
                   icon: Icon(Icons.delete),
                   onPressed: () async {
-                    dbHelper.deleteKelas(this.kelasList[index].id);
+                    dbHelper.deleteKelas(this.kelasList[index].id,this.kelasList[index].namaKelas);
                     updateListView();
                   },
                 )
