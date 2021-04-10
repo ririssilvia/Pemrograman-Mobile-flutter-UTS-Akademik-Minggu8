@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:uts/DBHelper/dbhelper.dart';
-import 'package:uts/Model/kelas.dart';
-import 'kelasEntryForm.dart';
+import 'package:uts/Form/matakuliahEntryForm.dart';
+import 'package:uts/Model/mataKuliah.dart';
+import 'dart:async';
 
-class HomeKelas extends StatefulWidget {
+class HomeMatkul extends StatefulWidget {
   @override
-  HomeKelasState createState() => HomeKelasState();
+  HomeMatkulState createState() => HomeMatkulState();
 }
 
-class HomeKelasState extends State<HomeKelas> {
+class HomeMatkulState extends State<HomeMatkul> {
   DbHelper dbHelper = DbHelper();
   int count = 0;
-  //mengambil model kelas untuk di jadikan kelas list
-  List<Kelas> kelasList;
+  List<MataKuliah> mataKulihList;
 
   @override
-  //menampilkan data yang sudah diinputkan ketika pertama kali membuka aplikasi
+   //menampilkan data yang sudah diinputkan ketika pertama kali membuka aplikasi
   void initState() {
     super.initState();
     updateListView();
@@ -24,25 +24,24 @@ class HomeKelasState extends State<HomeKelas> {
 
   @override
   Widget build(BuildContext context) {
-    if (kelasList == null) {
-      kelasList = [];
+    if (mataKulihList == null) {
+      mataKulihList = [];
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text('Daftar List Kelas '),
+        title: Text('Daftar List MataKulaih'),
       ),
       body: Column(children: [
         Expanded(
           child: createListView(),
         ),
       ]),
-
-      //button add data
+      //button add data matakuliah
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           var data = await navigateToEntryForm(context, null);
           if (data != null) {
-            int result = await dbHelper.insertKelas(data);
+            int result = await dbHelper.insertMataKuliah(data);
             if (result > 0) {
               updateListView();
             }
@@ -50,7 +49,7 @@ class HomeKelasState extends State<HomeKelas> {
         },
         child: Icon(
           //membuat icon
-          Icons.add,
+          Icons.note_add,
           size: 50,
           color: Colors.black,
         ),
@@ -59,30 +58,30 @@ class HomeKelasState extends State<HomeKelas> {
     );
   }
 
-  Future<Kelas> navigateToEntryForm(
-      BuildContext context, Kelas kelas) async {
+  Future<MataKuliah> navigateToEntryForm(
+      BuildContext context, MataKuliah mataKuliah) async {
     var result = await Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) {
-      return EntryForm(kelas);
+      return EntryForm(mataKuliah);
     }));
     return result;
   }
 
   ListView createListView() {
-    // ignore: unused_local_variable
-    TextStyle textStyle = Theme.of(context).textTheme.headline6;
+    TextStyle textStyle = Theme.of(context).textTheme.headline5;
     return ListView.builder(
       itemCount: count,
       itemBuilder: (BuildContext context, int index) {
         return Card(
           color: Colors.purple[100],
+          elevation: 2.0,
           child: ListTile(
             leading: CircleAvatar(
-              child: Icon(Icons.roofing_outlined),
+              child: Icon(Icons.book),
             ),
-
+            //menampilkan data yang telah di add di home 
             title: Text(
-              this.kelasList[index].kodeKelas,
+              this.mataKulihList[index].kodeMatkul.toString(),
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
@@ -93,24 +92,24 @@ class HomeKelasState extends State<HomeKelas> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Nama Kelas: " +  this.kelasList[index].namaKelas,
+                  "Nama Matakuliah : " + this.mataKulihList[index].namaMatkul,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
                   ),
                 ),
+               
                 Text(
-                  "Keterangan: " +  this.kelasList[index].keterangan,
+                  "SKS : " + this.mataKulihList[index].sks.toString(),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
                   ),
                 ),
-                
               ],
             ),
-            //button edit
-            // widget yang akan menampilkan setelah title
+
+            //button untuk edit data
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -118,20 +117,21 @@ class HomeKelasState extends State<HomeKelas> {
                   icon: Icon(Icons.rate_review),
                   onPressed: () async {
                     var data = await navigateToEntryForm(
-                        context, this.kelasList[index]);
+                        context, this.mataKulihList[index]);
                     if (data != null) {
-                      int result = await dbHelper.updateKelas(data);
+                      int result = await dbHelper.updateMataKuliah(data);
                       if (result > 0) {
                         updateListView();
                       }
                     }
                   },
                 ),
-                //button delete
+
+                //button untuk hapus data
                 IconButton(
                   icon: Icon(Icons.delete),
                   onPressed: () async {
-                    dbHelper.deleteKelas(this.kelasList[index].id,this.kelasList[index].namaKelas);
+                    dbHelper.deleteMataKuliah(this.mataKulihList[index].id,this.mataKulihList[index].namaMatkul);
                     updateListView();
                   },
                 )
@@ -147,11 +147,12 @@ class HomeKelasState extends State<HomeKelas> {
   void updateListView() {
     final Future<Database> dbFuture = dbHelper.initDb();
     dbFuture.then((database) {
-      Future<List<Kelas>> kelasListFuture = dbHelper.getKelasList();
-      kelasListFuture.then((kelasList) {
+      Future<List<MataKuliah>> mataKuliahListFuture =
+          dbHelper.getMataKuliahList();
+      mataKuliahListFuture.then((mataKuliahList) {
         setState(() {
-          this.kelasList = kelasList;
-          this.count = kelasList.length;
+          this.mataKulihList = mataKuliahList;
+          this.count = mataKuliahList.length;
         });
       });
     });

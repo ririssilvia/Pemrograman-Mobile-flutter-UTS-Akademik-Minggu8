@@ -1,6 +1,6 @@
 //kode utama Aplikasi tampilan awal
 import 'package:flutter/material.dart';
-import 'package:uts/home.dart';
+import 'package:uts/Page/home.dart';
 
  //package letak folder Anda
 

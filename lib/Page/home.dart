@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:uts/homeKelas.dart';
-import 'package:uts/homeMahasiswa.dart';
-import 'package:uts/homeMatakuliah.dart';
+import 'package:uts/Page/homeMahasiswa.dart';
+import 'package:uts/Page/homeMatakuliah.dart';
+
+
 
 class Home extends StatelessWidget {
   // This widget is the root of your application.
@@ -20,8 +21,9 @@ class Home extends StatelessWidget {
       ),
 
       body: Container(
-        margin: EdgeInsets.only(left: 15, top: 15, right: 15),
-        height: 600,
+        
+        margin: EdgeInsets.only(left: 15, top: 50, right: 15),
+        height: 500,
         decoration: BoxDecoration(
           color: Colors.purple[200],
           borderRadius: BorderRadius.circular(20), //untuk membuat border radius
@@ -56,7 +58,8 @@ class Home extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => HomeMhs(),
+                             
+                              builder: (context) => HomeMatkul(),
                             ));
                       },
                       padding: EdgeInsets.only(
@@ -79,7 +82,7 @@ class Home extends StatelessWidget {
                             ),
                             child: Icon(
                               //membuat icon untuk mahasiswa
-                              Icons.people_outline_rounded,
+                              Icons.library_books,
                               size: 50,
                               color: Colors.black,
                             ),
@@ -87,7 +90,7 @@ class Home extends StatelessWidget {
                           Container(
                             margin: EdgeInsets.only(top: 20),
                             child: Text(
-                              "Mahasiswa",
+                              "MataKuliah",
                               style:
                                   TextStyle(fontSize: 20, color: Colors.black),
                             ),
@@ -104,7 +107,7 @@ class Home extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => HomeMatkul(),
+                               builder: (context) => HomeMhs(),
                             ));
                       },
                       padding: EdgeInsets.only(
@@ -127,7 +130,8 @@ class Home extends StatelessWidget {
                             ),
                             child: Icon(
                               //membuat icon matakuliah
-                              Icons.library_books,
+                              
+                              Icons.people_outline_rounded,
                               size: 50,
                               color: Colors.black,
                             ),
@@ -135,63 +139,7 @@ class Home extends StatelessWidget {
                           Container(
                             margin: EdgeInsets.only(top: 20),
                             child: Text(
-                              "MataKuliah",
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 20, top: 20),
-                    child: RaisedButton(
-                      color: Colors.yellow,
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => HomeKelas(),
-                            ),
-                            );
-                      },
-                      padding: EdgeInsets.only(
-                          left: 25, top: 15, right: 25, bottom: 40),
-                      child: Column(
-                        //untuk menempatkan icon dan teks di setiap raised button secara vertikal
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.purple[200],
-                              borderRadius: BorderRadius.circular(100), //membuat border radius
-                              boxShadow: [
-                                BoxShadow(
-                                  //membuat shadow
-                                  color: Colors.grey,
-                                  spreadRadius: 5,
-                                  blurRadius: 5,
-                                )
-                              ],
-                            ),
-                            child: Icon(
-                              //membuat icon kelas
-                              Icons.roofing_outlined ,
-                              size: 60,
-                              color: Colors.black,
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 20),
-                            child: Text(
-                              "Ruang Kelas",
+                              "Mahasiswa",
                               style:
                                   TextStyle(fontSize: 20, color: Colors.black),
                             ),

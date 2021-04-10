@@ -1,35 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:uts/Model/kelas.dart';
+import 'package:uts/Model/mataKuliah.dart';
 
-class EntryForm extends StatefulWidget{
-  final Kelas kelas;
+class EntryForm extends StatefulWidget {
+  final MataKuliah mataKuliah;
 
-  EntryForm(this.kelas);
+  EntryForm(this.mataKuliah);
 
   @override
-  EntryFormState createState() => EntryFormState(this.kelas);
+  EntryFormState createState() => EntryFormState(this.mataKuliah);
 }
 
 //class controller
 class EntryFormState extends State<EntryForm> {
-  Kelas kelas;
-  EntryFormState(this.kelas);
-  TextEditingController kodeKelasController = TextEditingController();
-  TextEditingController namaKelasController = TextEditingController();
-  TextEditingController keteranganController = TextEditingController();
+  //mendeklarasikan model matakuliah untuk di pakai di class entryformmatakuliah
+  MataKuliah mataKuliah;
+  EntryFormState(this.mataKuliah);
+  TextEditingController kodeMatakulController = TextEditingController();
+  TextEditingController namaMatkulController = TextEditingController();
+  TextEditingController sksController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     //kondisi
-    if (kelas != null) {
-      kodeKelasController.text = kelas.kodeKelas;
-      namaKelasController.text = kelas.namaKelas;
-      keteranganController.text =kelas.keterangan;
+    if (mataKuliah != null) {
+      kodeMatakulController.text = mataKuliah.kodeMatkul;
+      namaMatkulController.text = mataKuliah.namaMatkul;
+      sksController.text = mataKuliah.sks.toString();
     }
     //rubah
     return Scaffold(
         appBar: AppBar(
-          title: kelas == null ? Text('Tambah') : Text('Ubah'),
+          title: mataKuliah == null ? Text('Tambah') : Text('Ubah'),
           leading: new IconButton(
             icon: new Icon(Icons.arrow_back),
             onPressed: () {
@@ -45,10 +46,10 @@ class EntryFormState extends State<EntryForm> {
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                 child: TextField(
-                  controller: kodeKelasController,
+                  controller: kodeMatakulController,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
-                    labelText: 'Kode Kelas',
+                    labelText: 'Kode MataKuliah',
                     icon: Icon(Icons.qr_code),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
@@ -64,10 +65,10 @@ class EntryFormState extends State<EntryForm> {
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                 child: TextField(
-                  controller: namaKelasController,
+                  controller: namaMatkulController,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
-                    labelText: 'Nama Kelas',
+                    labelText: 'Nama MataKulaih',
                     icon: Icon(Icons.book),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
@@ -82,18 +83,15 @@ class EntryFormState extends State<EntryForm> {
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                 child: TextField(
-                  controller: keteranganController,
-                  keyboardType: TextInputType.text,
+                  controller: sksController,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    labelText: 'Keterangan ',
+                    labelText: 'Jumlah SKS',
                     icon: Icon(Icons.input),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                   ),
-                  onChanged: (value) {
-                    //
-                  },
                 ),
               ),
 
@@ -107,22 +105,21 @@ class EntryFormState extends State<EntryForm> {
                       child: FloatingActionButton.extended(
                         //button with an optional icon and label
                          onPressed: () {
-                          if (kelas == null) {
+                          if (mataKuliah == null) {
                             // tambah data
-                            kelas = Kelas(
-                                kodeKelasController.text,
-                                namaKelasController.text,
-                                keteranganController.text
-                                );
+                            mataKuliah = MataKuliah(
+                                kodeMatakulController.text,
+                                namaMatkulController.text,
+                                 int.parse(sksController.text));
                           } else {
                             // ubah data
-                            kelas.kodeKelas = kodeKelasController.text;
-                            kelas.namaKelas = namaKelasController.text;
-                            kelas.keterangan =  keteranganController.text;
+                            mataKuliah.kodeMatkul = kodeMatakulController.text;
+                            mataKuliah.namaMatkul = namaMatkulController.text;
+                            mataKuliah.sks = int.parse(sksController.text);
                           }
 
-                          // kembali ke layar sebelumnya dengan membawa objek kelas
-                          Navigator.pop(context, kelas);
+                          // kembali ke layar sebelumnya dengan membawa objek item
+                          Navigator.pop(context, mataKuliah);
                         },
                         backgroundColor: Colors.purple,
                         icon: Icon(Icons.archive_outlined),

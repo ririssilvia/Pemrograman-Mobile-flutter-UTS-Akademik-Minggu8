@@ -3,20 +3,17 @@ class MataKuliah {
   int _id;
   String _kodeMatkul;
   String _namaMatkul;
-  String _kelas;
   int _sks;
  
  //getter akan mengambil nilai yang dimasukkan ke consturctor
  //setter ini akan dipakai untuk mengembalikan nilai yang dimasukkan dari constructor
     get id => this._id;
 
-    String get kelas => this._kelas;
-    set kelas(String value) => this._kelas = value;
 
     get kodeMatkul => this._kodeMatkul;
     set kodeMatkul( value) => this._kodeMatkul = value;
 
-    String get namaMatkul => this._namaMatkul;
+    get namaMatkul => this._namaMatkul;
     set namaMatkul(String value) => this._namaMatkul = value;
 
     int get sks => this._sks;
@@ -24,14 +21,13 @@ class MataKuliah {
 
 
   // konstruktor versi 1
-  MataKuliah(this._kodeMatkul, this._namaMatkul, this._kelas, this._sks);
+  MataKuliah(this._kodeMatkul, this._namaMatkul,  this._sks);
 
   // konstruktor versi 2: konversi dari Map ke Matkul
   MataKuliah.fromMap(Map<String, dynamic> map) {
     this._id = map['id'];
     this._kodeMatkul = map['kodeMatkul'];
     this._namaMatkul= map['namaMatkul'];
-    this._kelas= map['kelas'];
     this._sks = map['sks'];
   }
 
@@ -41,7 +37,6 @@ class MataKuliah {
     map['id'] = this._id;
     map['kodeMatkul'] = kodeMatkul;
     map['namaMatkul'] = namaMatkul;
-    map['kelas'] = kelas;
     map['sks'] = sks;
     return map;
   }
